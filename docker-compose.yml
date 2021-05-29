@@ -5,8 +5,18 @@ services:
     tty: true
     restart: always
     ports:
-      - '3000:3000'
+      - '3001:3000'
     volumes:
       - type: bind
         source: .
         target: /api-server
+    depends_on:
+      - db-server-dev
+  db-server-dev:
+    container_name: db-server-dev
+    image: mysql:5.7.29
+    restart: always
+    ports:
+      - '3307:3306'
+    env_file:
+      - .env
